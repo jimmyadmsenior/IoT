@@ -1,0 +1,6 @@
+
+[project]
+name = "Meu Primeiro Projeto Wokwi"
+
+[board]
+type = "uno"
