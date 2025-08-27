@@ -1,10 +1,11 @@
-from machine import Pin
+from machine import Pin, PWM
 from time import sleep
 
-buzzer = Pin(15, Pin.OUT)
+buzzer = PWM(Pin(15))
+buzzer.freq(2000)  # Frequência de 2kHz, ajuste conforme necessário
 
 while True:
-    buzzer.on()
+    buzzer.duty_u16(20000)  # Volume moderado
     sleep(1)
-    buzzer.off()
+    buzzer.duty_u16(0)      # Desliga o buzzer
     sleep(1)
