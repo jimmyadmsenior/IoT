@@ -1,6 +1,10 @@
 # Aqui declaramos as bibliotecas que vamos utilizar
-from machine import Pin
-from utime import sleep
+
+
+# from machine import Pin
+# from utime import sleep
+
+
 
 # Aqui declaramos as variáveis e os LEDS
 led_vermelho = Pin(15, Pin.OUT)
