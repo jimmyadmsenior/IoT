@@ -30,3 +30,5 @@ Sinta-se à vontade para abrir issues, sugerir melhorias ou enviar pull requests
 ---
 
 > Projeto mantido para fins de estudo, experimentação e aprendizado em IoT.
+
+>
