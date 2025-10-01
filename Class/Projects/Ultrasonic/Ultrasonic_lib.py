@@ -1,23 +1,43 @@
-# Nome do arquivo: main.py
+# Nome do arquivo: hcsr04.py
 
 from machine import Pin
-from utime import sleep
-from hcsr04 import HCSR04 # Importa a nossa nova biblioteca
+from utime import sleep_us, ticks_us, ticks_diff
 
-# --- Configuração do Sensor ---
-# Inicializa o sensor usando a nossa classe e especificando os pinos
-sensor = HCSR04(trigger_pin=14, echo_pin=15)
+class HCSR04:
+    """
+    Classe para encapsular a lógica de funcionamento do sensor ultrassônico HC-SR04.
+    """
+    def __init__(self, trigger_pin, echo_pin):
+        """
+        Inicializa o sensor com os pinos GPIO especificados.
+        """
+        self.trigger = Pin(trigger_pin, Pin.OUT)
+        self.echo = Pin(echo_pin, Pin.IN)
 
-# --- Loop Principal ---
-print("Iniciando medições com biblioteca...")
-while True:
-    # Chama o método da biblioteca para obter a distância
-    distancia = sensor.distancia_cm()
-    
-    if distancia < 0:
-        print("Falha na leitura. Verifique o sensor e as conexões.")
-    else:
-        print(f"Distância: {distancia:.2f} cm")
-    
-    # Pausa de 1 segundo
-    sleep(1)
+    def distancia_cm(self):
+        """
+        Mede e retorna a distância em centímetros.
+        """
+        self.trigger.low()
+        sleep_us(2)
+        self.trigger.high()
+        sleep_us(10)
+        self.trigger.low()
+
+        # Medição com timeout para evitar travamentos
+        start_time = ticks_us()
+        while self.echo.value() == 0:
+            if ticks_diff(ticks_us(), start_time) > 500000:
+                return -1 # Erro de timeout
+
+        pulse_start = ticks_us()
+        while self.echo.value() == 1:
+            if ticks_diff(ticks_us(), pulse_start) > 500000:
+                return -1 # Erro de timeout
+        
+        pulse_end = ticks_us()
+        
+        duracao_pulso = ticks_diff(pulse_end, pulse_start)
+        distancia = (duracao_pulso * 0.03432) / 2
+        
+        return distanci-a
