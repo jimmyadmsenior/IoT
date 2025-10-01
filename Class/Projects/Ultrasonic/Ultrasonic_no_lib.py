@@ -40,4 +40,4 @@ class HCSR04:
         duracao_pulso = ticks_diff(pulse_end, pulse_start)
         distancia = (duracao_pulso * 0.03432) / 2
         
-        return distancia
+        return distanci-a
