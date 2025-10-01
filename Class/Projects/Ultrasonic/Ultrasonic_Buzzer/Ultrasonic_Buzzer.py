@@ -40,4 +40,4 @@ while True:
         # Se você parar o código (Ctrl+C no Thonny), desliga o PWM.
         print("Programa interrompido.")
         buzzer.deinit()
-        break
+        breakdd
